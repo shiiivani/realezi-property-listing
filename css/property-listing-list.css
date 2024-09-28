@@ -1681,6 +1681,7 @@ nav .nav-filter li:hover {
   opacity: 0;
   transform: translateY(10px);
   transition: opacity 0.5s ease, transform 0.5s ease;
+  pointer-events: none;
 }
 
 .managed-byrealezi-tag:hover:before {
@@ -1814,6 +1815,7 @@ th {
   opacity: 0;
   transform: translateY(10px);
   transition: opacity 0.5s ease, transform 0.5s ease;
+  pointer-events: none;
 }
 
 .pll-like {
@@ -1835,6 +1837,7 @@ th {
   opacity: 0;
   transform: translateY(10px);
   transition: opacity 0.5s ease, transform 0.5s ease;
+  pointer-events: none;
 }
 
 .pll-share:hover::before,
