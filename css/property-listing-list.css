@@ -1473,7 +1473,7 @@ nav .nav-filter li:hover {
   background-position: center;
   background-repeat: no-repeat;
   min-width: 95%;
-  min-height: fit-content;
+  /* min-height: fit-content; */
   border-radius: 10px;
   padding: 40px 4px;
   margin-bottom: 20px;
@@ -2262,6 +2262,10 @@ th {
   border-top-right-radius: 50px;
   position: relative;
   padding: 55px 10px 20px 10px;
+}
+
+.footer .container {
+  max-width: 1120px;
 }
 
 .footer .upper-footer ul {
