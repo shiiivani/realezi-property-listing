@@ -6,6 +6,10 @@ window.onload = () => {
     budgetMin: 0,
     budgetMax: 500000000,
     saleType: [],
+    genderType: [],
+    roomType: [],
+    foodType: [],
+    furnishingType: [],
     possessionStage: [],
   };
 
@@ -144,8 +148,130 @@ window.onload = () => {
 
   setMinMax();
 
+  /* Rent Budget Slider */
+  const rentMinSlider = document.getElementById("rent-slider-min");
+  const rentMaxSlider = document.getElementById("rent-slider-max");
+
+  const rentInitialMinValue = rentMinSlider.value;
+  const rentInitialMaxValue = rentMaxSlider.value;
+
+  const rentMenuTypeButton = rentMinSlider
+    .closest(".dropdown")
+    .querySelector(".menu-type-1");
+
+  function rentFormatLabel(value) {
+    if (value < 30000) {
+      return "Rs. " + value / 1;
+    } else {
+      return "Rs. " + value / 1;
+    }
+  }
+
+  function setRentMinMax() {
+    if (parseInt(rentMinSlider.value) > parseInt(rentMaxSlider.value)) {
+      let tmp = rentMinSlider.value;
+      rentMinSlider.value = rentMaxSlider.value;
+      rentMaxSlider.value = tmp;
+    }
+
+    const rentBudgetStartLabel = document.getElementById(
+      "rent-budget-start-label"
+    );
+    const rentBudgetEndLabel = document.getElementById("rent-budget-end-label");
+
+    rentBudgetStartLabel.textContent = rentFormatLabel(rentMinSlider.value);
+    rentBudgetEndLabel.textContent = rentFormatLabel(rentMaxSlider.value);
+
+    if (
+      rentMinSlider.value !== rentInitialMinValue ||
+      rentMaxSlider.value !== rentInitialMaxValue
+    ) {
+      rentMenuTypeButton.classList.add("menu-type-1-active");
+    } else {
+      rentMenuTypeButton.classList.remove("menu-type-1-active");
+    }
+  }
+
+  rentMinSlider.addEventListener("input", setRentMinMax);
+  rentMaxSlider.addEventListener("input", setRentMinMax);
+
+  setRentMinMax();
+
+  /* Sq.Ft Slider */
+  const sqftMinSlider = document.getElementById("sqft-slider-min");
+  const sqftMaxSlider = document.getElementById("sqft-slider-max");
+
+  const sqftInitialMinValue = sqftMinSlider.value;
+  const sqftInitialMaxValue = sqftMaxSlider.value;
+
+  const sqftMenuTypeButton = sqftMinSlider
+    .closest(".dropdown")
+    .querySelector(".menu-type-1");
+
+  function sqftFormatLabel(value) {
+    if (value < 1000) {
+      return value + "Sq.Ft";
+    } else {
+      return value + "Sq.Ft";
+    }
+  }
+
+  function setSqftMinMax() {
+    if (parseInt(sqftMinSlider.value) > parseInt(sqftMaxSlider.value)) {
+      let tmp = sqftMinSlider.value;
+      sqftMinSlider.value = sqftMaxSlider.value;
+      sqftMaxSlider.value = tmp;
+    }
+
+    const sqftStartLabel = document.getElementById("sqft-start-label");
+    const sqftEndLabel = document.getElementById("sqft-end-label");
+
+    sqftStartLabel.textContent = sqftFormatLabel(sqftMinSlider.value);
+    sqftEndLabel.textContent = sqftFormatLabel(sqftMaxSlider.value);
+
+    if (
+      sqftMinSlider.value !== sqftInitialMinValue ||
+      sqftMaxSlider.value !== sqftInitialMaxValue
+    ) {
+      sqftMenuTypeButton.classList.add("menu-type-1-active");
+    } else {
+      sqftMenuTypeButton.classList.remove("menu-type-1-active");
+    }
+  }
+
+  sqftMinSlider.addEventListener("input", setSqftMinMax);
+  sqftMaxSlider.addEventListener("input", setSqftMinMax);
+
+  setSqftMinMax();
+
   // minSlider.addEventListener("input", setMinMax);
   // maxSlider.addEventListener("input", setMinMax);
+
+  /* Furnishing Type */
+  document.querySelectorAll(".furnishing-types").forEach((item) => {
+    item.addEventListener("click", (e) => {
+      e.stopPropagation();
+      item.classList.toggle("active-furnishing-type");
+      /* handle multi-select */
+      if (item.classList.contains("active-furnishing-type")) {
+        filters.furnishingType.push(
+          e.target.getAttribute("data-furnishing-type")
+        );
+        item.parentElement.parentElement.parentElement
+          .querySelector(".menu-type-1")
+          .classList.add("menu-type-1-active");
+      } else {
+        filters.furnishingType = filters.furnishingType.filter(
+          (type) => type !== e.target.getAttribute("data-furnishing-type")
+        );
+        if (filters.furnishingType.length === 0) {
+          item.parentElement.parentElement.parentElement
+            .querySelector(".menu-type-1")
+            .classList.remove("menu-type-1-active");
+        }
+      }
+    });
+  });
 
   /* Sale Type */
   document.querySelectorAll(".sale-types").forEach((item) => {
@@ -163,6 +289,78 @@ window.onload = () => {
           (type) => type !== e.target.getAttribute("data-sale-type")
         );
         if (filters.saleType.length === 0) {
+          item.parentElement.parentElement.parentElement
+            .querySelector(".menu-type-1")
+            .classList.remove("menu-type-1-active");
+        }
+      }
+    });
+  });
+
+  /* Gender Type */
+  document.querySelectorAll(".gender-types").forEach((item) => {
+    item.addEventListener("click", (e) => {
+      e.stopPropagation();
+      item.classList.toggle("active-gender-type");
+      /* handle multi-select */
+      if (item.classList.contains("active-gender-type")) {
+        filters.genderType.push(e.target.getAttribute("data-gender-type"));
+        item.parentElement.parentElement.parentElement
+          .querySelector(".menu-type-1")
+          .classList.add("menu-type-1-active");
+      } else {
+        filters.genderType = filters.genderType.filter(
+          (type) => type !== e.target.getAttribute("data-gender-type")
+        );
+        if (filters.genderType.length === 0) {
+          item.parentElement.parentElement.parentElement
+            .querySelector(".menu-type-1")
+            .classList.remove("menu-type-1-active");
+        }
+      }
+    });
+  });
+
+  /* Room Type */
+  document.querySelectorAll(".room-types").forEach((item) => {
+    item.addEventListener("click", (e) => {
+      e.stopPropagation();
+      item.classList.toggle("active-room-type");
+      /* handle multi-select */
+      if (item.classList.contains("active-room-type")) {
+        filters.roomType.push(e.target.getAttribute("data-room-type"));
+        item.parentElement.parentElement.parentElement
+          .querySelector(".menu-type-1")
+          .classList.add("menu-type-1-active");
+      } else {
+        filters.roomType = filters.roomType.filter(
+          (type) => type !== e.target.getAttribute("data-room-type")
+        );
+        if (filters.roomType.length === 0) {
+          item.parentElement.parentElement.parentElement
+            .querySelector(".menu-type-1")
+            .classList.remove("menu-type-1-active");
+        }
+      }
+    });
+  });
+
+  /* Food Type */
+  document.querySelectorAll(".food-types").forEach((item) => {
+    item.addEventListener("click", (e) => {
+      e.stopPropagation();
+      item.classList.toggle("active-food-type");
+      /* handle multi-select */
+      if (item.classList.contains("active-food-type")) {
+        filters.foodType.push(e.target.getAttribute("data-food-type"));
+        item.parentElement.parentElement.parentElement
+          .querySelector(".menu-type-1")
+          .classList.add("menu-type-1-active");
+      } else {
+        filters.foodType = filters.foodType.filter(
+          (type) => type !== e.target.getAttribute("data-food-type")
+        );
+        if (filters.foodType.length === 0) {
           item.parentElement.parentElement.parentElement
             .querySelector(".menu-type-1")
             .classList.remove("menu-type-1-active");
@@ -780,107 +978,129 @@ function copyLink(url) {
     .catch((err) => console.error("Failed to copy text: ", err));
 }
 
-document.addEventListener("DOMContentLoaded", function () {
-  const modalButtons = document.querySelectorAll(".pl-posted-by-download-b");
-  const likeButtons = document.querySelectorAll(".pll-like");
-  const contactModalButtons = document.querySelectorAll(
-    ".pl-posted-by-contact-p"
+// document.addEventListener("DOMContentLoaded", function () {
+//   const modalButtons = document.querySelectorAll(".pl-posted-by-download-b");
+//   const likeButtons = document.querySelectorAll(".pll-like");
+//   const contactModalButtons = document.querySelectorAll(
+//     ".pl-posted-by-contact-p"
+//   );
+//   const interestModalButtons = document.querySelector(".interested-btn");
+// const closeIcon = document.querySelector(
+//   ".brochure-modal-container .close-icon"
+// );
+
+function showContactModal(event) {
+  event.preventDefault();
+  event.stopPropagation();
+
+  const brochureModal = document.querySelector(
+    ".brochure-modal-container.form2"
   );
-  const interestModalButtons = document.querySelector(".interested-btn");
-  const modal = document.querySelector(".brochure-modal-container");
-  const closeIcon = document.querySelector(
-    ".brochure-modal-container .close-icon"
+
+  brochureModal.style.display = "flex";
+  brochureModal.offsetHeight;
+  brochureModal.classList.add("show");
+  brochureModal.classList.remove("hide");
+}
+
+function hideContactModal() {
+  const brochureModal = document.querySelector(
+    ".brochure-modal-container.form2"
   );
-  function showModal() {
-    modal.style.display = "flex";
-    modal.offsetHeight;
-    modal.classList.add("show");
-    modal.classList.remove("hide");
+
+  brochureModal.classList.add("hide");
+  brochureModal.classList.remove("show");
+
+  setTimeout(() => {
+    brochureModal.style.display = "none";
+  }, 500);
+}
+
+function closeContactModal(event) {
+  const brochureModal = document.querySelector(
+    ".brochure-modal-container.form2"
+  );
+
+  if (event.target === brochureModal) {
+    hideContactModal();
   }
+}
 
-  function hideModal() {
-    modal.classList.add("hide");
-    modal.classList.remove("show");
+function showModal(event) {
+  event.preventDefault();
+  event.stopPropagation();
+  const brochureModal = document.querySelector(".brochure-modal-container");
 
-    setTimeout(() => {
-      modal.style.display = "none";
-    }, 500);
-  }
+  brochureModal.style.display = "flex";
+  brochureModal.offsetHeight;
+  brochureModal.classList.add("show");
+  brochureModal.classList.remove("hide");
+}
 
-  modalButtons.forEach((button) => {
-    button.addEventListener("click", function () {
-      showModal();
-    });
-  });
+function hideModal() {
+  const brochureModal = document.querySelector(".brochure-modal-container");
 
-  contactModalButtons.forEach((button) => {
-    button.addEventListener("click", function () {
-      showModal();
-    });
-  });
+  brochureModal.classList.add("hide");
+  brochureModal.classList.remove("show");
 
-  likeButtons.forEach((button) => {
-    button.addEventListener("mousedown", function (e) {
-      showModal();
-    });
-  });
+  setTimeout(() => {
+    brochureModal.style.display = "none";
+  }, 500);
+}
 
-  interestModalButtons.addEventListener("click", function () {
-    showModal();
-  });
+function closeModal(event) {
+  const brochureModal = document.querySelector(".brochure-modal-container");
 
-  closeIcon.addEventListener("click", function () {
+  if (event.target === brochureModal) {
     hideModal();
-  });
-
-  document
-    .querySelector(".brochure-modal-container")
-    .addEventListener("click", function (e) {
-      if (e.target.classList.contains("brochure-modal-container")) {
-        hideModal();
-      }
-    });
-});
+  }
+}
 
 // Otp sent message
 document.addEventListener("DOMContentLoaded", function () {
-  const form = document.querySelector(".brochure-modal form");
-  const countryCodeSelect = document.getElementById("country-code");
-  const phoneNumberCont = document.querySelector(".phone-number-container");
-  const phoneNumberInput = document.getElementById("phone-number");
-  const sendOtpBtn = document.getElementById("send-otp-btn");
-  const otpSentMessage = document.getElementById("otp-sent-message");
+  const forms = document.querySelectorAll(".brochure-modal-container form");
 
-  sendOtpBtn.addEventListener("click", function (event) {
-    event.preventDefault();
-    const countryCode = countryCodeSelect.value;
-    const phoneNumber = phoneNumberInput.value;
+  forms.forEach((form) => {
+    const countryCodeSelect = form.querySelector("#country-code");
+    const phoneNumberInput = form.querySelector("#phone-number");
+    const sendOtpBtn = form.querySelector("#send-otp-btn");
+    const otpSentMessage = form.querySelector("#otp-sent-message");
+    const phoneNumberCont = form.querySelector(".phone-number-container");
 
-    if (phoneNumber) {
-      otpSentMessage.textContent = `We have sent the OTP to ${countryCode} ${phoneNumber}.`;
-      otpSentMessage.classList.add("active");
-      phoneNumberCont.classList.add("sent");
-      document
-        .querySelector(".otp-container")
-        .classList.add("otp-container-active");
-      phoneNumberInput.style.marginBottom = "0";
-    } else {
-      alert("Please enter a valid phone number.");
-      document
-        .querySelector(".otp-container")
-        .classList.remove("otp-container-active");
-    }
+    sendOtpBtn.addEventListener("click", function (event) {
+      event.preventDefault();
+      const countryCode = countryCodeSelect.value;
+      const phoneNumber = phoneNumberInput.value;
+
+      if (phoneNumber) {
+        otpSentMessage.textContent = `We have sent the OTP to ${countryCode} ${phoneNumber}.`;
+        otpSentMessage.classList.add("active");
+        phoneNumberCont.classList.add("sent");
+        form
+          .querySelector(".otp-container")
+          .classList.add("otp-container-active");
+        phoneNumberInput.style.marginBottom = "0";
+      } else {
+        alert("Please enter a valid phone number.");
+        form
+          .querySelector(".otp-container")
+          .classList.remove("otp-container-active");
+      }
+    });
   });
 });
 
-// Checking validity of forms
+// Check form validity
 document.addEventListener("DOMContentLoaded", function () {
   const forms = document.querySelectorAll(".modals form");
 
   forms.forEach(function (form) {
     const submitButton = form.querySelector(".submit-btn");
-    const checkBox = document.querySelector(".modals #checkboxId");
-    const verifyOtpButton = document.querySelector("#verify-otp");
+    const checkBox = form.querySelector(".modals #checkboxId");
+    const verifyOtpButton = form.querySelector("#verify-otp");
+    const otpInput = form.querySelector("input[name='otp']");
+    const otpLable = form.querySelector(".otp-container label");
+
     form.addEventListener("input", function () {
       const isValid = form.checkValidity();
 
@@ -892,18 +1112,16 @@ document.addEventListener("DOMContentLoaded", function () {
         submitButton.classList.remove("active");
       }
     });
-    verifyOtpButton.addEventListener("click", function (e) {
-      e.preventDefault();
-      const otpInput = document.querySelector("input[name='otp']");
+
+    otpInput.addEventListener("input", function () {
       if (otpInput.value.length === 4) {
         otpInput.setAttribute("disabled", true);
-        verifyOtpButton.setAttribute("disabled", true);
-        document.querySelector(".otp-container label").textContent = "Verified";
-        document.querySelector(".otp-container label").style.color = "green";
-        otpInput.value = "";
+        otpLable.style.transform = "translateY(2px)";
+        otpLable.style.backgroundColor = "#ffffff";
+        verifyOtpButton.classList.remove("d-none");
       } else {
-        otpInput.value = "";
-        alert("Please enter a valid OTP.");
+        otpInput.removeAttribute("disabled");
+        verifyOtpButton.classList.add("d-none");
       }
     });
   });
@@ -916,7 +1134,7 @@ document.addEventListener("DOMContentLoaded", function () {
   const confirmationPopupModals = document.querySelectorAll(
     ".confirmation-popup-modal"
   );
-  const closeIcons = document.querySelectorAll(".modal-container .close-icon");
+  // const closeIcons = document.querySelectorAll(".modal-container .close-icon");
 
   submitButtons.forEach((button, index) => {
     button.addEventListener("click", function (event) {
@@ -939,17 +1157,17 @@ document.addEventListener("DOMContentLoaded", function () {
     });
   });
 
-  closeIcons.forEach((closeIcon, index) => {
-    closeIcon.addEventListener("click", function () {
-      const confirmationModal = confirmationPopupModals[index];
-      const video = confirmationModal.querySelector("video");
+  // closeIcons.forEach((closeIcon, index) => {
+  //   closeIcon.addEventListener("click", function () {
+  //     const confirmationModal = confirmationPopupModals[index];
+  //     const video = confirmationModal.querySelector("video");
 
-      confirmationPopupModals[index].style.display = "none";
-      modals[index].style.display = "block";
-      confirmationModal.classList.remove("show");
-      video.classList.remove("shrink");
-    });
-  });
+  //     confirmationPopupModals[index].style.display = "none";
+  //     modals[index].style.display = "block";
+  //     confirmationModal.classList.remove("show");
+  //     video.classList.remove("shrink");
+  //   });
+  // });
 });
 
 // Opening nav filter
@@ -1181,14 +1399,13 @@ document.addEventListener("DOMContentLoaded", function () {
   const tabs = document.querySelectorAll("#propertyTypeTabs li");
   tabs.forEach((tab) => {
     tab.addEventListener("click", function () {
-      tabs.forEach((tab) => tab.classList.remove("active")); // Remove active class from all tabs
-      this.classList.add("active"); // Add active class to the selected tab
+      tabs.forEach((tab) => tab.classList.remove("active"));
+      this.classList.add("active");
       const selectedType = this.getAttribute("data-type");
-      updateDropdown(selectedType); // Update dropdown based on selected tab
+      updateDropdown(selectedType);
     });
   });
 
-  // Load Residential options on page load
   updateDropdown("Residential");
 });
 
@@ -1206,6 +1423,7 @@ document.addEventListener("DOMContentLoaded", () => {
   plShare.forEach((item, i) => {
     item.addEventListener("click", (e) => {
       e.stopPropagation();
+      e.preventDefault();
       toggleShareDiv(i);
     });
   });
@@ -1220,3 +1438,182 @@ document.addEventListener("DOMContentLoaded", () => {
     closeAllShareDivs();
   });
 });
+
+// Expanding Property description
+function expandPropertyDescription(event) {
+  event.preventDefault();
+  event.stopPropagation();
+  const expandIcon = event.currentTarget;
+  const card = expandIcon.closest(".property-list-card");
+  const propertyDescription = card.querySelector(".property-description");
+  const arrow = card.querySelector(".down-arrow");
+  const propertyDetails = card.querySelector(".property-details");
+
+  propertyDescription.classList.add("expand");
+  arrow.classList.remove("d-none");
+  expandIcon.classList.add("d-none");
+  propertyDetails.style.marginTop = "29px";
+}
+
+// Closing Property description
+function closePropertyDescription(event) {
+  event.preventDefault();
+  event.stopPropagation();
+  const closeIcon = event.currentTarget;
+  const card = closeIcon.closest(".property-list-card");
+  const propertyDescription = card.querySelector(".property-description");
+  const arrow = card.querySelector(".down-arrow");
+  const moreBtn = card.querySelector(".expand-about-property");
+  const propertyDetails = card.querySelector(".property-details");
+
+  propertyDescription.classList.remove("expand");
+  arrow.classList.add("d-none");
+  moreBtn.classList.remove("d-none");
+
+  propertyDetails.style.marginTop = "0px";
+}
+
+// Expanding Property features
+function expandPropertyFeatures(event) {
+  event.preventDefault();
+  event.stopPropagation();
+  const expandIcon = event.currentTarget;
+  const card = expandIcon.closest(".property-list-card");
+  const propertyDetails = card.querySelector(".property-details");
+  const propertyDescription = card.querySelector(".property-description");
+
+  propertyDetails.classList.toggle("expand");
+  expandIcon.classList.toggle("rotate");
+
+  propertyDescription.style.marginBottom =
+    propertyDescription.style.marginBottom === "64px" ? "0" : "64px";
+}
+
+// Expanding Property Amenities
+function expandPropertyAmenities(event) {
+  event.preventDefault();
+  event.stopPropagation();
+  const expandIcon = event.currentTarget;
+  const card = expandIcon.closest(".property-list-card");
+  const propertyAmenities = card.querySelector(".property-amenities");
+  const propertyDescription = card.querySelector(".property-description");
+
+  propertyAmenities.classList.toggle("expand");
+  expandIcon.classList.toggle("rotate");
+
+  propertyDescription.style.marginBottom =
+    propertyDescription.style.marginBottom === "80px" ? "0" : "80px";
+}
+
+// Open Agreement card
+function openAgreementDetails(event) {
+  event.stopPropagation();
+  event.preventDefault();
+  const button = event.currentTarget;
+  const card = button.closest(".property-list-details");
+  const agreementCard = card.querySelector(".agreement-details-card");
+
+  if (agreementCard.classList.contains("d-none")) {
+    agreementCard.classList.remove("d-none");
+  } else {
+    agreementCard.classList.add("d-none");
+  }
+}
+
+// Closing Agreement Card when clicked anywhere
+document.addEventListener("DOMContentLoaded", function () {
+  const agreementCards = document.querySelectorAll(".agreement-details-card");
+
+  agreementCards.forEach((card) => {
+    document.addEventListener("click", function (event) {
+      if (event.target.closest(".agreement-details-card") === card) {
+        return;
+      }
+      card.classList.add("d-none");
+    });
+  });
+});
+
+// Function to get the currently selected type
+function getSelectedType() {
+  const activeTab = document.querySelector("#propertyTypeTabs .active");
+  return activeTab ? activeTab.getAttribute("data-type") : null;
+}
+
+// Function to get the currently selected status
+function getSelectedStatus() {
+  const activeButton = document.querySelector(".toggle-button p.active");
+  return activeButton ? activeButton.textContent.toLowerCase() : null;
+}
+
+// Changing Filters
+function changeFilter(status, type) {
+  const rentBudget = document.querySelector(".rent-budget-dropdown");
+  const budget = document.querySelector(".budget-dropdown");
+  const bhkType = document.querySelector(".bhk-dropdown");
+  const moreFilter = document.querySelector(".more-filters-dropdown");
+  const saleType = document.querySelector(".sale-type-dropdown");
+  const furnishingType = document.querySelector(".furnishing-type-dropdown");
+  const possessionStage = document.querySelector(".possession-stage-dropdown");
+  const propertyType = document.querySelector(".property-type-dropdown");
+  const genderType = document.querySelector(".gender-type-dropdown");
+  const foodType = document.querySelector(".food-type-dropdown");
+  const roomType = document.querySelector(".room-type-dropdown");
+  const sqft = document.querySelector(".sqft-dropdown");
+
+  if (status === "rent") {
+    rentBudget.classList.remove("d-none");
+    budget.classList.add("d-none");
+  } else if (status === "buy") {
+    rentBudget.classList.add("d-none");
+    budget.classList.remove("d-none");
+  }
+
+  if (
+    (type === "plots" && status === "buy") ||
+    (status === "rent" && type === "pg") ||
+    type === "commercial"
+  ) {
+    bhkType.classList.add("d-none");
+  } else {
+    bhkType.classList.remove("d-none");
+  }
+
+  if (type === "commercial" || (status === "rent" && type === "pg")) {
+    moreFilter.classList.add("d-none");
+  } else {
+    moreFilter.classList.remove("d-none");
+  }
+
+  if (type === "commercial" || (status === "rent" && type === "pg")) {
+    sqft.classList.remove("d-none");
+    furnishingType.classList.add("d-none");
+  } else {
+    sqft.classList.add("d-none");
+    furnishingType.classList.remove("d-none");
+  }
+
+  if (status === "rent" || (status === "rent" && type === "pg")) {
+    saleType.classList.add("d-none");
+    rentBudget.classList.remove("d-none");
+    budget.classList.add("d-none");
+  } else {
+    saleType.classList.remove("d-none");
+    rentBudget.classList.add("d-none");
+    budget.classList.remove("d-none");
+  }
+
+  if (status === "rent" && type === "pg") {
+    possessionStage.classList.add("d-none");
+    propertyType.classList.add("d-none");
+    genderType.classList.remove("d-none");
+    foodType.classList.remove("d-none");
+    roomType.classList.remove("d-none");
+  } else {
+    possessionStage.classList.remove("d-none");
+    propertyType.classList.remove("d-none");
+    genderType.classList.add("d-none");
+    foodType.classList.add("d-none");
+    roomType.classList.add("d-none");
+  }
+}
