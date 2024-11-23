@@ -114,9 +114,9 @@ window.onload = () => {
 
   function formatLabel(value) {
     if (value < 10000000) {
-      return "Rs. " + value / 100000 + "L";
+      return "₹ " + value / 100000 + "L";
     } else {
-      return "Rs. " + value / 10000000 + "Cr";
+      return "₹ " + value / 10000000 + "Cr";
     }
   }
 
@@ -161,9 +161,9 @@ window.onload = () => {
 
   function rentFormatLabel(value) {
     if (value < 30000) {
-      return "Rs. " + value / 1;
+      return "₹ " + value / 1;
     } else {
-      return "Rs. " + value / 1;
+      return "₹ " + value / 1;
     }
   }
 
@@ -1482,6 +1482,16 @@ function expandPropertyFeatures(event) {
   const propertyDetails = card.querySelector(".property-details");
   const propertyDescription = card.querySelector(".property-description");
 
+  if (
+    window.innerWidth > 1400 ||
+    (window.innerWidth >= 870 && window.innerWidth <= 1200)
+  ) {
+    const paragraphCount = propertyDetails.querySelectorAll("p").length;
+    if (paragraphCount <= 4) {
+      return;
+    }
+  }
+
   propertyDetails.classList.toggle("expand");
   expandIcon.classList.toggle("rotate");
 
@@ -1497,6 +1507,16 @@ function expandPropertyAmenities(event) {
   const card = expandIcon.closest(".property-list-card");
   const propertyAmenities = card.querySelector(".property-amenities");
   const propertyDescription = card.querySelector(".property-description");
+
+  if (
+    window.innerWidth > 1400 ||
+    (window.innerWidth >= 850 && window.innerWidth <= 1200)
+  ) {
+    const imgCount = propertyAmenities.querySelectorAll("img").length;
+    if (imgCount <= 6) {
+      return;
+    }
+  }
 
   propertyAmenities.classList.toggle("expand");
   expandIcon.classList.toggle("rotate");
@@ -1572,25 +1592,28 @@ function changeFilter(status, type) {
   if (
     (type === "plots" && status === "buy") ||
     (status === "rent" && type === "pg") ||
-    type === "commercial"
+    type === "commercial" ||
+    type === "coworking-space"
   ) {
     bhkType.classList.add("d-none");
   } else {
     bhkType.classList.remove("d-none");
   }
 
-  if (type === "commercial" || (status === "rent" && type === "pg")) {
+  if (status === "rent" && type === "pg") {
     moreFilter.classList.add("d-none");
+    sqft.classList.add("d-none");
   } else {
     moreFilter.classList.remove("d-none");
+    sqft.classList.remove("d-none");
   }
 
-  if (type === "commercial" || (status === "rent" && type === "pg")) {
+  if (type === "plots" || type === "commercial") {
     sqft.classList.remove("d-none");
-    furnishingType.classList.add("d-none");
+    moreFilter.classList.add("d-none");
   } else {
     sqft.classList.add("d-none");
-    furnishingType.classList.remove("d-none");
+    moreFilter.classList.add("d-none");
   }
 
   if (status === "rent" || (status === "rent" && type === "pg")) {
@@ -1603,15 +1626,38 @@ function changeFilter(status, type) {
     budget.classList.remove("d-none");
   }
 
+  if (
+    (type === "coworking-space" && status === "rent") ||
+    type === "plots" ||
+    type === "commercial"
+  ) {
+    furnishingType.classList.add("d-none");
+  } else {
+    furnishingType.classList.remove("d-none");
+  }
+
+  if (type === "coworking-space" && status === "rent") {
+    sqft.classList.remove("d-none");
+  } else {
+    sqft.classList.add("d-none");
+  }
+
+  if (
+    (type === "coworking-space" && status === "rent") ||
+    (status === "rent" && type === "pg")
+  ) {
+    propertyType.classList.add("d-none");
+  } else {
+    propertyType.classList.remove("d-none");
+  }
+
   if (status === "rent" && type === "pg") {
     possessionStage.classList.add("d-none");
-    propertyType.classList.add("d-none");
     genderType.classList.remove("d-none");
     foodType.classList.remove("d-none");
     roomType.classList.remove("d-none");
   } else {
     possessionStage.classList.remove("d-none");
-    propertyType.classList.remove("d-none");
     genderType.classList.add("d-none");
     foodType.classList.add("d-none");
     roomType.classList.add("d-none");
