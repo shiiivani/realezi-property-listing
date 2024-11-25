@@ -1663,3 +1663,23 @@ function changeFilter(status, type) {
     roomType.classList.add("d-none");
   }
 }
+
+document.querySelectorAll(".places").forEach((place) => {
+  place.addEventListener("mouseenter", () => {
+    // Create a hover text container if it doesn't exist
+    let hoverText = place.querySelector(".hover-text");
+    if (!hoverText) {
+      hoverText = document.createElement("div");
+      hoverText.className = "hover-text";
+      hoverText.innerText = place.querySelector("p").innerText; // Use the first <p> text
+      place.appendChild(hoverText);
+    }
+  });
+
+  place.addEventListener("mouseleave", () => {
+    const hoverText = place.querySelector(".hover-text");
+    if (hoverText) {
+      hoverText.remove();
+    }
+  });
+});
