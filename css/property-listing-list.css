@@ -156,6 +156,7 @@ nav .nav-filter li:hover {
 .share-div {
   display: none;
   z-index: 100;
+  width: max-content;
 }
 
 .share-div-active {
@@ -745,7 +746,7 @@ nav .nav-filter li:hover {
 #pl-main-content {
   min-width: 100%;
   padding-block: 10px;
-  /* gap: 10px; */
+  gap: 10px;
   display: flex;
   flex-direction: column;
 }
@@ -4232,6 +4233,9 @@ form .no-transform label {
   #property-list-card-1-sponsored {
     display: none;
   }
+  #pl-main-content {
+    gap: 0px;
+  }
   main {
     padding: 0px !important;
   }
@@ -4245,6 +4249,23 @@ form .no-transform label {
   }
   .mob-pll-with-ad .mobile-amenities-section .amenities {
     margin-right: 20px;
+  }
+  .mob-pll-with-ad .lease-tags {
+    position: relative;
+    top: auto;
+    left: auto;
+    margin: 5px 0px;
+  }
+  .mob-pll-with-ad .lease-tags div img {
+    width: 10px;
+    height: 10px;
+  }
+  .mob-pll-with-ad .lease-tags div p {
+    font-size: 0.7rem;
+  }
+  .mob-pll-with-ad .agreement-details-card .column:last-child {
+    width: 100px;
+    margin-left: 10px;
   }
   .mob-card-div-1 {
     display: block;

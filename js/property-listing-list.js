@@ -1518,6 +1518,21 @@ function openAgreementDetails(event) {
   }
 }
 
+// Open Agreement card
+function openMobileAgreementDetails(event) {
+  event.stopPropagation();
+  event.preventDefault();
+  const button = event.currentTarget;
+  const card = button.closest(".mob-card-cost");
+  const agreementCard = card.querySelector(".agreement-details-card");
+
+  if (agreementCard.classList.contains("d-none")) {
+    agreementCard.classList.remove("d-none");
+  } else {
+    agreementCard.classList.add("d-none");
+  }
+}
+
 // Closing Agreement Card when clicked anywhere
 document.addEventListener("DOMContentLoaded", function () {
   const agreementCards = document.querySelectorAll(".agreement-details-card");
