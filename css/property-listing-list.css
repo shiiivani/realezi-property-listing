@@ -237,8 +237,8 @@ nav .nav-filter li:hover {
 #pl-nav-2 {
   display: flex;
   gap: 10px;
-  /* flex-wrap: wrap; */
-  overflow-x: auto;
+  flex-wrap: wrap;
+  /* overflow-x: auto; */
   padding-inline: 50px;
   background-color: #ffffff;
   padding-block: 10px;
@@ -1734,6 +1734,9 @@ nav .nav-filter li:hover {
 .carousel-item {
   height: 100%;
 }
+.pll-with-ad {
+  margin: 10px 0px;
+}
 .pll-with-ad .property-list-img-container {
   margin-bottom: 10px;
 }
@@ -2635,7 +2638,10 @@ th {
 .filter-section-modal .buy-rent-section p,
 .filter-section-modal .category-section p,
 .filter-section-modal .listed-section p,
-.filter-section-modal .facing-section p {
+.filter-section-modal .furnishing-section p,
+.filter-section-modal .sale-type-section p,
+.filter-section-modal .facing-section p,
+.filter-section-modal .amenities-section p {
   padding: 10px 20px;
   box-shadow: 0px 4px 13px 0px #00000022;
   border-radius: 5px;
@@ -2645,7 +2651,10 @@ th {
 .filter-section-modal .buy-rent-section p.active,
 .filter-section-modal .category-section p.active,
 .filter-section-modal .listed-section p.active,
-.filter-section-modal .facing-section p.active {
+.filter-section-modal .furnishing-section p.active,
+.filter-section-modal .sale-type-section p.active,
+.filter-section-modal .facing-section p.active,
+.filter-section-modal .amenities-section p.active {
   border: 1px solid #111f3c;
   background: #dde8ff;
 }
@@ -2740,7 +2749,7 @@ th {
 }
 
 .filter-section-modal .advanced-filter-section.show {
-  max-height: 900px;
+  max-height: 2000px;
 }
 
 .filter-section-modal .posession-section li,
@@ -4384,7 +4393,7 @@ form .no-transform label {
     display: none;
   } */
   #pl-nav-2 {
-    /* display: none; */
+    display: none;
   }
   #pl-search-drop-div {
     display: none !important;

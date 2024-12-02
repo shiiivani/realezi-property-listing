@@ -299,6 +299,28 @@ document.addEventListener("DOMContentLoaded", function () {
 
   const facingSection = document.querySelector(".facing-section");
   handleActiveClass(facingSection);
+
+  const furnishingSection = document.querySelector(".furnishing-section");
+  handleActiveClass(furnishingSection);
+
+  const saleTypeSection = document.querySelector(".sale-type-section");
+  handleActiveClass(saleTypeSection);
+});
+
+// Selecing Amenities options
+document.addEventListener("DOMContentLoaded", function () {
+  function handleActiveClass(container) {
+    const pElements = container.querySelectorAll("p");
+
+    pElements.forEach((p) => {
+      p.addEventListener("click", function () {
+        this.classList.add("active");
+      });
+    });
+  }
+
+  const amenitiesSection = document.querySelector(".amenities-section");
+  handleActiveClass(amenitiesSection);
 });
 
 // Filters being applied
@@ -315,7 +337,10 @@ document.addEventListener("DOMContentLoaded", function () {
   }
 
   function addFilterTag(text, element, sectionClass) {
-    if (sectionClass !== "property-type-section") {
+    if (
+      sectionClass !== "property-type-section" &&
+      sectionClass != "amenities-section"
+    ) {
       removeExistingFilter(sectionClass);
     }
 
@@ -354,10 +379,13 @@ document.addEventListener("DOMContentLoaded", function () {
       "input[type='checkbox'], input[type='radio']"
     );
 
+    const amenities = document.querySelector(".amenities-section p");
+
     pElements.forEach((p) => {
       p.addEventListener("click", function () {
-        console.log("p clicked:", p.textContent);
-        pElements.forEach((pEl) => pEl.classList.remove("active"));
+        if (!amenities) {
+          pElements.forEach((pEl) => pEl.classList.remove("active"));
+        }
         p.classList.add("active");
         addFilterTag(p.textContent, p, sectionClass);
       });
@@ -387,16 +415,13 @@ document.addEventListener("DOMContentLoaded", function () {
     });
   }
 
-  // function reapplyPropertyTypeListeners() {
-  //   handleSectionClick("property-type-section");
-  // }
-
   handleSectionClick("posession-section");
   handleSectionClick("listed-section");
+  handleSectionClick("furnishing-section");
+  handleSectionClick("sale-type-section");
+  handleSectionClick("amenities-section");
   handleSectionClick("facing-section");
   handleSectionClick("property-age-section");
-
-  // reapplyPropertyTypeListeners();
 
   const clearFilterBtn = document.getElementById("clear-filter");
   if (clearFilterBtn) {
