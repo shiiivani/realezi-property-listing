@@ -462,14 +462,6 @@ window.onload = () => {
     layout: new rive.Layout({ fit: "contain", alignment: "center" }),
   });
 
-  document.querySelectorAll(".pll-like").forEach((item) => {
-    item.addEventListener("click", (e) => {
-      let session = false;
-      e.stopPropagation();
-      session && item.querySelector("path").classList.toggle("pll-like-active");
-    });
-  });
-
   document.querySelectorAll(".more-filters").forEach((item) => {
     item.addEventListener("click", (e) => {
       e.stopPropagation();

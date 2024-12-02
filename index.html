@@ -26,6 +26,7 @@ https://cdn.jsdelivr.net/npm/@splidejs/splide@4.1.4/dist/css/splide.min.css
     <script src="https://unpkg.com/@rive-app/canvas@2.9.1"></script>
     <script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.1/gsap.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     <script src="js/filter-section.js"></script>
     <script src="js/property-listing-list.js"></script>
     <script defer src="js/footer.js"></script>
@@ -3817,7 +3818,7 @@ https://cdn.jsdelivr.net/npm/@splidejs/splide@4.1.4/dist/css/splide.min.css
                 <!-- Commercial Rent Mobile view card -->
                 <div class="mob-pll-with-ad mob-card-div-1">
                     <div class="mob-card-img-div">
-                        <div id="carouselExample5" class="carousel slide ">
+                        <div id="carouselExample5" class="carousel carousels slide">
                             <div class="carousel-inner">
                                 <div class="verified-tag">
                                     Verified
@@ -3843,7 +3844,6 @@ https://cdn.jsdelivr.net/npm/@splidejs/splide@4.1.4/dist/css/splide.min.css
                                 <span class="visually-hidden">Next</span>
                             </button>
                         </div>
-
                     </div>
                     <div class="mob-card-div1 mt-2">
                         <div class="mob-card-cost position-relative">
@@ -7932,6 +7932,47 @@ https://cdn.jsdelivr.net/npm/@splidejs/splide@4.1.4/dist/css/splide.min.css
         divs.forEach((div, index) => {
             div.classList.add(colors[index % colors.length]);
         });
+
+    </script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const carousels = document.querySelectorAll('.carousel');
+
+            carousels.forEach((carousel) => {
+                let startX = 0;
+
+                // Listen for the touchstart event to capture the initial position
+                carousel.addEventListener('touchstart', (event) => {
+                    startX = event.touches[0].clientX;
+                });
+
+                // Listen for the touchend event to determine the swipe direction
+                carousel.addEventListener('touchend', (event) => {
+                    const endX = event.changedTouches[0].clientX;
+                    const sensitivityInPx = 5;
+
+                    const carouselInstance = bootstrap.Carousel.getOrCreateInstance(carousel);
+
+                    if (startX - endX > sensitivityInPx) {
+                        // Swipe left (next slide)
+                        carouselInstance.next();
+                    } else if (startX - endX < -sensitivityInPx) {
+                        // Swipe right (previous slide)
+                        carouselInstance.prev();
+                    }
+                });
+            });
+        });
+
+        document.addEventListener("DOMContentLoaded", () => {
+            document.querySelectorAll(".pll-like").forEach((item) => {
+                item.addEventListener("click", (e) => {
+                    console.log("working");
+                    item.querySelector("path").classList.toggle("pll-like-active");
+                });
+            });
+        });
+
 
     </script>
 </body>

@@ -4236,6 +4236,9 @@ form .no-transform label {
   #pl-main-content {
     gap: 0px;
   }
+  .pll-like::before {
+    right: 5px;
+  }
   main {
     padding: 0px !important;
   }
