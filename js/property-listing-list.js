@@ -9,40 +9,11 @@ window.onload = () => {
     genderType: [],
     roomType: [],
     foodType: [],
+    suitableType: [],
+    locationType: [],
     furnishingType: [],
     possessionStage: [],
   };
-
-  /* Handle More Text */
-  const dotDotDot = document.querySelectorAll("#dot-dot-dot");
-  const moreText = document.querySelectorAll("#sponsored-more-txt");
-  const moreBtn = document.querySelectorAll("#sponsored-more-btn");
-  /* 
-  moreBtn.addEventListener("click", () => {
-    if (moreBtn.textContent === "more") {
-      dotDotDot.style.display = "none";
-      moreText.style.display = "inline";
-      moreBtn.textContent = "show less";
-    } else {
-      dotDotDot.style.display = "inline";
-      moreText.style.display = "none";
-      moreBtn.textContent = "more";
-    }
-  }); */
-
-  moreBtn.forEach((item, i) => {
-    item.addEventListener("click", () => {
-      if (item.textContent === "more") {
-        dotDotDot[i].style.display = "none";
-        moreText[i].style.display = "inline";
-        item.textContent = "show less";
-      } else {
-        dotDotDot[i].style.display = "inline";
-        moreText[i].style.display = "none";
-        item.textContent = "more";
-      }
-    });
-  });
 
   /* Flip chevron on dropdown open */
   //flip chevron on dropdown open
@@ -369,6 +340,54 @@ window.onload = () => {
     });
   });
 
+  /* Suitable Type */
+  document.querySelectorAll(".suitable-types").forEach((item) => {
+    item.addEventListener("click", (e) => {
+      e.stopPropagation();
+      item.classList.toggle("active-suitable-type");
+      /* handle multi-select */
+      if (item.classList.contains("active-suitable-type")) {
+        filters.suitableType.push(e.target.getAttribute("data-suitable-type"));
+        item.parentElement.parentElement.parentElement
+          .querySelector(".menu-type-1")
+          .classList.add("menu-type-1-active");
+      } else {
+        filters.suitableType = filters.suitableType.filter(
+          (type) => type !== e.target.getAttribute("data-suitable-type")
+        );
+        if (filters.suitableType.length === 0) {
+          item.parentElement.parentElement.parentElement
+            .querySelector(".menu-type-1")
+            .classList.remove("menu-type-1-active");
+        }
+      }
+    });
+  });
+
+  /* Location Type */
+  document.querySelectorAll(".location-types").forEach((item) => {
+    item.addEventListener("click", (e) => {
+      e.stopPropagation();
+      item.classList.toggle("active-location-type");
+      /* handle multi-select */
+      if (item.classList.contains("active-location-type")) {
+        filters.locationType.push(e.target.getAttribute("data-location-type"));
+        item.parentElement.parentElement.parentElement
+          .querySelector(".menu-type-1")
+          .classList.add("menu-type-1-active");
+      } else {
+        filters.locationType = filters.locationType.filter(
+          (type) => type !== e.target.getAttribute("data-location-type")
+        );
+        if (filters.locationType.length === 0) {
+          item.parentElement.parentElement.parentElement
+            .querySelector(".menu-type-1")
+            .classList.remove("menu-type-1-active");
+        }
+      }
+    });
+  });
+
   /* Posession Stage */
   document.querySelectorAll(".possession-stages").forEach((item) => {
     item.addEventListener("click", (e) => {
@@ -422,25 +441,6 @@ window.onload = () => {
     });
   });
 
-  /* handle card detail view */
-  // document.querySelectorAll(".pl-card-detailed-box").forEach((card) => {
-  //   /* find the button  */
-  //   let button = card.querySelector(".pl-card-detailed-button");
-
-  //   /* find all card items with class .pl-card-detailed-content-item-hidden  */
-  //   let cardItem = card.querySelectorAll(
-  //     ".pl-card-detailed-content-item-hidden"
-  //   );
-
-  //   /* add event listener to button */
-  //   button.addEventListener("click", () => {
-  //     cardItem.forEach((item) => {
-  //       console.log(item);
-  //       item.classList.toggle("pl-card-detailed-content-item-hidden");
-  //     });
-  //   });
-  // });
-
   var splide = new Splide(".splide", {
     perPage: 1.2,
     type: "slide",
@@ -456,13 +456,12 @@ window.onload = () => {
   splide.mount();
 
   new rive.Rive({
-    src: "rive/fire.riv", // host your Rive file and add the url to src
+    src: "rive/fire.riv",
     canvas: document.getElementById("pl-fire"),
     autoplay: true,
     layout: new rive.Layout({ fit: "contain", alignment: "center" }),
   });
 
-  /* on clicking .pll-like button fill the path color to orange  */
   document.querySelectorAll(".pll-like").forEach((item) => {
     item.addEventListener("click", (e) => {
       let session = false;
@@ -470,27 +469,6 @@ window.onload = () => {
       session && item.querySelector("path").classList.toggle("pll-like-active");
     });
   });
-
-  // Party Popper Animation
-  // const partyPopper = new rive.Rive({
-  //   src: "rive/partyPopper.riv",
-  //   canvas: document.getElementById("partyPopper"),
-  //   autoplay: true,
-  //   stateMachines: "State Machine 1",
-  //   onLoad: () => {
-  //     partyPopper.resizeDrawingSurfaceToCanvas();
-  //   },
-  // });
-
-  // const partyPopper2 = new rive.Rive({
-  //   src: "rive/partyPopper.riv",
-  //   canvas: document.getElementById("partyPopper2"),
-  //   autoplay: true,
-  //   stateMachines: "State Machine 1",
-  //   onLoad: () => {
-  //     partyPopper.resizeDrawingSurfaceToCanvas();
-  //   },
-  // });
 
   document.querySelectorAll(".more-filters").forEach((item) => {
     item.addEventListener("click", (e) => {
@@ -1554,6 +1532,57 @@ document.addEventListener("DOMContentLoaded", function () {
   });
 });
 
+// Expand Nearby Places
+function expandNearbyPlaces(event) {
+  event.stopPropagation();
+  event.preventDefault();
+  const moreBtn = event.currentTarget;
+  const nearbyPlaces = moreBtn.closest(".nearby-places");
+  const expandedNearbyPlaces = nearbyPlaces.querySelector(
+    ".expanded-nearby-places"
+  );
+
+  expandedNearbyPlaces.classList.remove("d-none");
+}
+
+function closeNearbyPlaces(event) {
+  event.stopPropagation();
+  event.preventDefault();
+  const closeBtn = event.currentTarget;
+  const nearbyPlaces = closeBtn.closest(".nearby-places");
+  const expandedNearbyPlaces = nearbyPlaces.querySelector(
+    ".expanded-nearby-places"
+  );
+
+  expandedNearbyPlaces.classList.add("d-none");
+}
+
+// Expanding PG Amenities
+function expandPGAmenities(event) {
+  event.preventDefault();
+  event.stopPropagation();
+  const expandIcon = event.currentTarget;
+  const card = expandIcon.closest(".property-list-card");
+  const propertyAmenities = card.querySelector(".property-amenities");
+  const nearbyPlaces = card.querySelector(".nearby-places");
+
+  if (
+    window.innerWidth > 1400 ||
+    (window.innerWidth >= 850 && window.innerWidth <= 1200)
+  ) {
+    const imgCount = propertyAmenities.querySelectorAll("img").length;
+    if (imgCount <= 6) {
+      return;
+    }
+  }
+
+  propertyAmenities.classList.toggle("expand");
+  expandIcon.classList.toggle("rotate");
+
+  nearbyPlaces.style.marginBottom =
+    nearbyPlaces.style.marginBottom === "80px" ? "0" : "80px";
+}
+
 // Function to get the currently selected type
 function getSelectedType() {
   const activeTab = document.querySelector("#propertyTypeTabs .active");
@@ -1580,6 +1609,8 @@ function changeFilter(status, type) {
   const foodType = document.querySelector(".food-type-dropdown");
   const roomType = document.querySelector(".room-type-dropdown");
   const sqft = document.querySelector(".sqft-dropdown");
+  const suitable = document.querySelector(".suitable-type-dropdown");
+  const location = document.querySelector(".location-type-dropdown");
 
   if (status === "rent") {
     rentBudget.classList.remove("d-none");
@@ -1636,6 +1667,14 @@ function changeFilter(status, type) {
     furnishingType.classList.remove("d-none");
   }
 
+  if (type === "commercial") {
+    suitable.classList.remove("d-none");
+    location.classList.remove("d-none");
+  } else {
+    suitable.classList.add("d-none");
+    location.classList.add("d-none");
+  }
+
   if (type === "coworking-space" && status === "rent") {
     sqft.classList.remove("d-none");
   } else {
@@ -1664,22 +1703,22 @@ function changeFilter(status, type) {
   }
 }
 
-document.querySelectorAll(".places").forEach((place) => {
-  place.addEventListener("mouseenter", () => {
-    // Create a hover text container if it doesn't exist
-    let hoverText = place.querySelector(".hover-text");
-    if (!hoverText) {
-      hoverText = document.createElement("div");
-      hoverText.className = "hover-text";
-      hoverText.innerText = place.querySelector("p").innerText; // Use the first <p> text
-      place.appendChild(hoverText);
-    }
-  });
+// Mobile view description expand
+function expandMobilePropertyDescription(event) {
+  event.stopPropagation();
+  event.preventDefault();
 
-  place.addEventListener("mouseleave", () => {
-    const hoverText = place.querySelector(".hover-text");
-    if (hoverText) {
-      hoverText.remove();
-    }
-  });
-});
+  const moreBtn = event.currentTarget;
+  const description = moreBtn.previousElementSibling;
+  const isExpanded = description.classList.contains("expanded");
+
+  if (isExpanded) {
+    description.classList.remove("expanded");
+    description.classList.add("single-line");
+    moreBtn.textContent = "more";
+  } else {
+    description.classList.remove("single-line");
+    description.classList.add("expanded");
+    moreBtn.textContent = "collapse";
+  }
+}
