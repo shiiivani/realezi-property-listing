@@ -9,9 +9,12 @@ window.onload = () => {
     genderType: [],
     roomType: [],
     foodType: [],
-    suitableType: [],
-    locationType: [],
     furnishingType: [],
+    prelease: [],
+    listedBy: [],
+    availability: [],
+    pgAmenities: [],
+    seats: [],
     possessionStage: [],
   };
 
@@ -131,7 +134,7 @@ window.onload = () => {
     .querySelector(".menu-type-1");
 
   function rentFormatLabel(value) {
-    if (value < 30000) {
+    if (value < 50000) {
       return "₹ " + value / 1;
     } else {
       return "₹ " + value / 1;
@@ -340,46 +343,22 @@ window.onload = () => {
     });
   });
 
-  /* Suitable Type */
-  document.querySelectorAll(".suitable-types").forEach((item) => {
+  /* PG Amenities */
+  document.querySelectorAll(".pg-amenities").forEach((item) => {
     item.addEventListener("click", (e) => {
       e.stopPropagation();
-      item.classList.toggle("active-suitable-type");
+      item.classList.toggle("active-pg-amenities");
       /* handle multi-select */
-      if (item.classList.contains("active-suitable-type")) {
-        filters.suitableType.push(e.target.getAttribute("data-suitable-type"));
+      if (item.classList.contains("active-pg-amenities")) {
+        filters.pgAmenities.push(e.target.getAttribute("data-pg-amenities"));
         item.parentElement.parentElement.parentElement
           .querySelector(".menu-type-1")
           .classList.add("menu-type-1-active");
       } else {
-        filters.suitableType = filters.suitableType.filter(
-          (type) => type !== e.target.getAttribute("data-suitable-type")
+        filters.pgAmenities = filters.pgAmenities.filter(
+          (type) => type !== e.target.getAttribute("data-pg-amenities")
         );
-        if (filters.suitableType.length === 0) {
-          item.parentElement.parentElement.parentElement
-            .querySelector(".menu-type-1")
-            .classList.remove("menu-type-1-active");
-        }
-      }
-    });
-  });
-
-  /* Location Type */
-  document.querySelectorAll(".location-types").forEach((item) => {
-    item.addEventListener("click", (e) => {
-      e.stopPropagation();
-      item.classList.toggle("active-location-type");
-      /* handle multi-select */
-      if (item.classList.contains("active-location-type")) {
-        filters.locationType.push(e.target.getAttribute("data-location-type"));
-        item.parentElement.parentElement.parentElement
-          .querySelector(".menu-type-1")
-          .classList.add("menu-type-1-active");
-      } else {
-        filters.locationType = filters.locationType.filter(
-          (type) => type !== e.target.getAttribute("data-location-type")
-        );
-        if (filters.locationType.length === 0) {
+        if (filters.pgAmenities.length === 0) {
           item.parentElement.parentElement.parentElement
             .querySelector(".menu-type-1")
             .classList.remove("menu-type-1-active");
@@ -408,6 +387,102 @@ window.onload = () => {
         );
         console.log("else triggered");
         if (filters.possessionStage.length === 0) {
+          item.parentElement.parentElement.parentElement
+            .querySelector(".menu-type-1")
+            .classList.remove("menu-type-1-active");
+        }
+      }
+    });
+  });
+
+  /* No. of seats */
+  document.querySelectorAll(".seats").forEach((item) => {
+    item.addEventListener("click", (e) => {
+      e.stopPropagation();
+      item.classList.toggle("active-seats");
+      /* handle multi-select */
+      if (item.classList.contains("active-seats")) {
+        filters.seats.push(e.target.getAttribute("data-seats"));
+        item.parentElement.parentElement.parentElement
+          .querySelector(".menu-type-1")
+          .classList.add("menu-type-1-active");
+      } else {
+        filters.seats = filters.seats.filter(
+          (type) => type !== e.target.getAttribute("data-seats")
+        );
+        if (filters.seats.length === 0) {
+          item.parentElement.parentElement.parentElement
+            .querySelector(".menu-type-1")
+            .classList.remove("menu-type-1-active");
+        }
+      }
+    });
+  });
+
+  /* Pre-lease/Pre-rent */
+  document.querySelectorAll(".prelease").forEach((item) => {
+    item.addEventListener("click", (e) => {
+      e.stopPropagation();
+      item.classList.toggle("active-prelease");
+      /* handle multi-select */
+      if (item.classList.contains("active-prelease")) {
+        filters.prelease.push(e.target.getAttribute("data-prelease"));
+        item.parentElement.parentElement.parentElement
+          .querySelector(".menu-type-1")
+          .classList.add("menu-type-1-active");
+      } else {
+        filters.prelease = filters.prelease.filter(
+          (type) => type !== e.target.getAttribute("data-prelease")
+        );
+        if (filters.prelease.length === 0) {
+          item.parentElement.parentElement.parentElement
+            .querySelector(".menu-type-1")
+            .classList.remove("menu-type-1-active");
+        }
+      }
+    });
+  });
+
+  /* Listed By */
+  document.querySelectorAll(".listed-by").forEach((item) => {
+    item.addEventListener("click", (e) => {
+      e.stopPropagation();
+      item.classList.toggle("active-listed-by");
+      /* handle multi-select */
+      if (item.classList.contains("active-listed-by")) {
+        filters.listedBy.push(e.target.getAttribute("data-listed-by"));
+        item.parentElement.parentElement.parentElement
+          .querySelector(".menu-type-1")
+          .classList.add("menu-type-1-active");
+      } else {
+        filters.listedBy = filters.listedBy.filter(
+          (type) => type !== e.target.getAttribute("data-listed-by")
+        );
+        if (filters.listedBy.length === 0) {
+          item.parentElement.parentElement.parentElement
+            .querySelector(".menu-type-1")
+            .classList.remove("menu-type-1-active");
+        }
+      }
+    });
+  });
+
+  /* Availability */
+  document.querySelectorAll(".availability").forEach((item) => {
+    item.addEventListener("click", (e) => {
+      e.stopPropagation();
+      item.classList.toggle("active-availability");
+      /* handle multi-select */
+      if (item.classList.contains("active-availability")) {
+        filters.availability.push(e.target.getAttribute("data-availability"));
+        item.parentElement.parentElement.parentElement
+          .querySelector(".menu-type-1")
+          .classList.add("menu-type-1-active");
+      } else {
+        filters.availability = filters.availability.filter(
+          (type) => type !== e.target.getAttribute("data-availability")
+        );
+        if (filters.availability.length === 0) {
           item.parentElement.parentElement.parentElement
             .querySelector(".menu-type-1")
             .classList.remove("menu-type-1-active");
@@ -1319,20 +1394,38 @@ document.addEventListener("DOMContentLoaded", function () {
         );
         button.innerText = option;
 
-        button.addEventListener("click", (e) => {
-          e.stopPropagation();
-          handlePropertyTypeSelection(button, e);
-        });
+        if (option === "Commercial Plot") {
+          button.addEventListener("click", (e) => {
+            e.stopPropagation();
+            if (button.classList.contains("active-property-type")) {
+              changeFilter("buy", "plots");
+            } else {
+              changeFilter("buy", "commercial plots");
+            }
+            handlePropertyTypeSelection(button, e);
+          });
+        } else {
+          button.addEventListener("click", (e) => {
+            e.stopPropagation();
+            handlePropertyTypeSelection(button, e);
+          });
+        }
 
         dropdownContainer.appendChild(button);
       });
 
+      // Ensure selected options are marked active
       filters.propertyType.forEach((selectedType) => {
         const selectedButton = dropdownContainer.querySelector(
           `[data-property-type="${selectedType}"]`
         );
         if (selectedButton) {
           selectedButton.classList.add("active-property-type");
+
+          // Call changeFilter if the active option is "Commercial Plot"
+          if (selectedType === "Commercial Plot") {
+            changeFilter("status", "Commercial Plot");
+          }
         }
       });
     }
@@ -1593,7 +1686,7 @@ function expandPGAmenities(event) {
 // Function to get the currently selected type
 function getSelectedType() {
   const activeTab = document.querySelector("#propertyTypeTabs .active");
-  return activeTab ? activeTab.getAttribute("data-type") : null;
+  return activeTab ? activeTab.getAttribute("data-type").toLowerCase() : null;
 }
 
 // Function to get the currently selected status
@@ -1616,97 +1709,360 @@ function changeFilter(status, type) {
   const foodType = document.querySelector(".food-type-dropdown");
   const roomType = document.querySelector(".room-type-dropdown");
   const sqft = document.querySelector(".sqft-dropdown");
-  const suitable = document.querySelector(".suitable-type-dropdown");
-  const location = document.querySelector(".location-type-dropdown");
+  const listedBy = document.querySelector(".listed-by-dropdown");
+  const prelease = document.querySelector(".prelease-dropdown");
+  const availability = document.querySelector(".availability-dropdown");
+  const pgAmenities = document.querySelector(".pg-amenities-dropdown");
+  const seats = document.querySelector(".seats-dropdown");
+  const filterLeaseType = document.querySelectorAll(".pl-filter-leaseType");
+  const filterListedBy = document.querySelectorAll(".pl-filter-listedby");
+  const filterSqft = document.querySelectorAll(".pl-filter-builtupArea");
+  const filterRera = document.querySelectorAll(".pl-filter-rera");
+  const filterFurnishing = document.querySelectorAll(".pl-filter-furnishing");
+  const filterEntrance = document.querySelectorAll(".pl-filter-facing");
+  const filterBathroom = document.querySelectorAll(".pl-filter-bathrooms");
+  const filterPropertyDetails = document.querySelectorAll(
+    ".pl-filter-property-details"
+  );
+  const filterConstruction = document.querySelectorAll(
+    ".pl-filter-construction"
+  );
+  const filterAgeOfProperty = document.querySelectorAll(
+    ".pl-filter-ageOfProperty"
+  );
+  const filterOpenSides = document.querySelectorAll(".pl-filter-open-side");
+  const filterZone = document.querySelectorAll(".pl-filter-zone");
+  const filterOwnership = document.querySelectorAll(".pl-filter-ownership");
+  const filterLockInPeriod = document.querySelectorAll(
+    ".pl-filter-lockInPeriod"
+  );
+  const filterWashroom = document.querySelectorAll(".pl-filter-washroom");
+  const filterCommercialAmenities = document.querySelectorAll(
+    ".pl-filter-commercial-amenities"
+  );
+  const filterSpaceAccess = document.querySelectorAll(".pl-filter-spaceAccess");
+  const filterAmenities = document.querySelectorAll(".pl-filter-amenities");
+  const filterVerified = document.querySelectorAll(".pl-filter-verified");
 
   if (status === "rent") {
     rentBudget.classList.remove("d-none");
     budget.classList.add("d-none");
+    saleType.classList.add("d-none");
+    filterRera.forEach((element) => {
+      element.classList.add("d-none");
+    });
   } else if (status === "buy") {
     rentBudget.classList.add("d-none");
     budget.classList.remove("d-none");
+    saleType.classList.remove("d-none");
+    filterRera.forEach((element) => {
+      element.classList.remove("d-none");
+    });
+  }
+
+  if (status === "rent" || type === "plots" || type === "commercial plots") {
+    possessionStage.classList.add("d-none");
+  } else {
+    possessionStage.classList.remove("d-none");
+  }
+
+  if (type === "commercial plots" && status === "buy") {
+    filterZone.forEach((element) => {
+      element.classList.remove("d-none");
+    });
+    filterOwnership.forEach((element) => {
+      element.classList.remove("d-none");
+    });
+  } else {
+    filterZone.forEach((element) => {
+      element.classList.add("d-none");
+    });
+    filterOwnership.forEach((element) => {
+      element.classList.add("d-none");
+    });
   }
 
   if (
-    (type === "plots" && status === "buy") ||
-    (status === "rent" && type === "pg") ||
-    type === "commercial" ||
+    ((type === "plots" || type === "commercial plots") && status === "buy") ||
     type === "coworking-space"
+  ) {
+    filterAgeOfProperty.forEach((element) => {
+      element.classList.add("d-none");
+    });
+  } else {
+    filterAgeOfProperty.forEach((element) => {
+      element.classList.remove("d-none");
+    });
+  }
+
+  if ((type === "plots" || type === "commercial plots") && status === "buy") {
+    filterEntrance.forEach((element) => {
+      element.classList.remove("d-none");
+    });
+    filterPropertyDetails.forEach((element) => {
+      element.classList.remove("d-none");
+    });
+    filterConstruction.forEach((element) => {
+      element.classList.remove("d-none");
+    });
+
+    filterOpenSides.forEach((element) => {
+      element.classList.remove("d-none");
+    });
+  } else {
+    filterEntrance.forEach((element) => {
+      element.classList.add("d-none");
+    });
+    filterPropertyDetails.forEach((element) => {
+      element.classList.add("d-none");
+    });
+    filterConstruction.forEach((element) => {
+      element.classList.add("d-none");
+    });
+    filterOpenSides.forEach((element) => {
+      element.classList.add("d-none");
+    });
+  }
+
+  if (
+    (status === "rent" && type === "residential") ||
+    type === "plots" ||
+    type === "commercial plots" ||
+    type === "coworking-space"
+  ) {
+    filterListedBy.forEach((element) => {
+      element.classList.add("d-none");
+    });
+  } else {
+    filterListedBy.forEach((element) => {
+      element.classList.remove("d-none");
+    });
+  }
+
+  if (
+    (status === "rent" && type === "residential") ||
+    type === "plots" ||
+    type === "commercial plots" ||
+    type === "coworking-space"
+  ) {
+    filterFurnishing.forEach((element) => {
+      element.classList.add("d-none");
+    });
+  } else {
+    filterFurnishing.forEach((element) => {
+      element.classList.remove("d-none");
+    });
+  }
+
+  if (
+    type === "plots" ||
+    type === "commercial plots" ||
+    type === "coworking-space"
+  ) {
+    filterFurnishing.forEach((element) => {
+      element.classList.add("d-none");
+    });
+    filterBathroom.forEach((element) => {
+      element.classList.add("d-none");
+    });
+  } else {
+    filterFurnishing.forEach((element) => {
+      element.classList.remove("d-none");
+    });
+    filterBathroom.forEach((element) => {
+      element.classList.remove("d-none");
+    });
+  }
+
+  if (
+    status === "rent" &&
+    (type === "residential" || type === "pg" || type === "coworking-space")
+  ) {
+    listedBy.classList.add("d-none");
+  } else {
+    listedBy.classList.remove("d-none");
+  }
+
+  if (
+    status === "rent" &&
+    (type === "residential" || type === "coworking-space")
+  ) {
+    filterEntrance.forEach((element) => {
+      element.classList.add("d-none");
+    });
+  } else {
+    filterEntrance.forEach((element) => {
+      element.classList.remove("d-none");
+    });
+  }
+
+  if (status === "rent" && type === "residential") {
+    furnishingType.classList.remove("d-none");
+    filterLeaseType.forEach((element) => {
+      element.classList.remove("d-none");
+    });
+    filterSqft.forEach((element) => {
+      element.classList.remove("d-none");
+    });
+  } else {
+    furnishingType.classList.add("d-none");
+    filterLeaseType.forEach((element) => {
+      element.classList.add("d-none");
+    });
+    filterSqft.forEach((element) => {
+      element.classList.add("d-none");
+    });
+  }
+
+  if (type === "commercial" && status === "buy") {
+    prelease.classList.remove("d-none");
+    furnishingType.classList.add("d-none");
+  } else {
+    prelease.classList.add("d-none");
+    furnishingType.classList.remove("d-none");
+  }
+
+  if (
+    (type === "commercial" || type === "coworking-space") &&
+    status === "rent"
+  ) {
+    availability.classList.remove("d-none");
+  } else {
+    availability.classList.add("d-none");
+  }
+
+  if (type === "plots" || type === "commercial") {
+    listedBy.classList.remove("d-none");
+  } else {
+    listedBy.classList.add(".d-none");
+  }
+
+  if (status === "buy" && type === "commercial") {
+    bhkType.classList.add("d-none");
+  } else if (
+    (type === "commercial" ||
+      type === "coworking-space" ||
+      type === "commercial plots" ||
+      type === "plots" ||
+      type === "pg") &&
+    (status === "rent" || status === "buy")
   ) {
     bhkType.classList.add("d-none");
   } else {
     bhkType.classList.remove("d-none");
   }
 
-  if (status === "rent" && type === "pg") {
-    moreFilter.classList.add("d-none");
+  if (
+    status === "rent" &&
+    (type === "pg" || type === "residential" || type === "coworking-space")
+  ) {
     sqft.classList.add("d-none");
   } else {
-    moreFilter.classList.remove("d-none");
     sqft.classList.remove("d-none");
   }
 
-  if (type === "plots" || type === "commercial") {
-    sqft.classList.remove("d-none");
-    moreFilter.classList.add("d-none");
+  if (type === "pg" && status === "rent") {
+    pgAmenities.classList.remove("d-none");
   } else {
-    sqft.classList.add("d-none");
-    moreFilter.classList.add("d-none");
-  }
-
-  if (status === "rent" || (status === "rent" && type === "pg")) {
-    saleType.classList.add("d-none");
-    rentBudget.classList.remove("d-none");
-    budget.classList.add("d-none");
-  } else {
-    saleType.classList.remove("d-none");
-    rentBudget.classList.add("d-none");
-    budget.classList.remove("d-none");
+    pgAmenities.classList.add("d-none");
   }
 
   if (
-    (type === "coworking-space" && status === "rent") ||
     type === "plots" ||
-    type === "commercial"
+    type === "commercial" ||
+    type === "commercial plots"
+  ) {
+    sqft.classList.remove("d-none");
+  } else {
+    sqft.classList.add("d-none");
+  }
+
+  if (type === "coworking-space") {
+    seats.classList.remove("d-none");
+  } else {
+    seats.classList.add("d-none");
+  }
+
+  if ((status === "rent" && type === "pg") || type === "commercial") {
+    moreFilter.classList.add("d-none");
+  } else {
+    moreFilter.classList.remove("d-none");
+  }
+
+  if (
+    type === "plots" ||
+    type === "commercial" ||
+    type === "commercial plots" ||
+    type === "pg" ||
+    (type === "residential" && status === "buy")
   ) {
     furnishingType.classList.add("d-none");
   } else {
     furnishingType.classList.remove("d-none");
   }
 
-  if (type === "commercial") {
-    suitable.classList.remove("d-none");
-    location.classList.remove("d-none");
-  } else {
-    suitable.classList.add("d-none");
-    location.classList.add("d-none");
-  }
-
-  if (type === "coworking-space" && status === "rent") {
-    sqft.classList.remove("d-none");
-  } else {
-    sqft.classList.add("d-none");
-  }
-
-  if (
-    (type === "coworking-space" && status === "rent") ||
-    (status === "rent" && type === "pg")
-  ) {
+  if ((type === "coworking-space" || type === "pg") && status === "rent") {
     propertyType.classList.add("d-none");
   } else {
     propertyType.classList.remove("d-none");
   }
 
+  if (type === "coworking-space" || type === "commercial") {
+    filterCommercialAmenities.forEach((element) => {
+      element.classList.remove("d-none");
+    });
+    filterAmenities.forEach((element) => {
+      element.classList.add("d-none");
+    });
+  } else {
+    filterCommercialAmenities.forEach((element) => {
+      element.classList.add("d-none");
+    });
+    filterAmenities.forEach((element) => {
+      element.classList.remove("d-none");
+    });
+  }
+
+  if (type === "coworking-space") {
+    filterLockInPeriod.forEach((element) => {
+      element.classList.remove("d-none");
+    });
+    filterWashroom.forEach((element) => {
+      element.classList.remove("d-none");
+    });
+    filterSpaceAccess.forEach((element) => {
+      element.classList.remove("d-none");
+    });
+  } else {
+    filterLockInPeriod.forEach((element) => {
+      element.classList.add("d-none");
+    });
+    filterWashroom.forEach((element) => {
+      element.classList.add("d-none");
+    });
+    filterSpaceAccess.forEach((element) => {
+      element.classList.add("d-none");
+    });
+  }
+
   if (status === "rent" && type === "pg") {
-    possessionStage.classList.add("d-none");
     genderType.classList.remove("d-none");
     foodType.classList.remove("d-none");
     roomType.classList.remove("d-none");
   } else {
-    possessionStage.classList.remove("d-none");
     genderType.classList.add("d-none");
     foodType.classList.add("d-none");
     roomType.classList.add("d-none");
+  }
+
+  if (type === "commercial" || type === "coworking-space" || type === "pg") {
+    filterVerified.forEach((element) => {
+      element.classList.add("d-none");
+    });
+  } else {
+    filterVerified.forEach((element) => {
+      element.classList.remove("d-none");
+    });
   }
 }
 

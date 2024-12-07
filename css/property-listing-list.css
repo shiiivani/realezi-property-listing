@@ -351,8 +351,11 @@ nav .nav-filter li:hover {
 #genderTypeDropdown .item-box,
 #roomTypeDropdown .item-box,
 #foodTypeDropdown .item-box,
-#suitableTypeDropdown .item-box,
-#locationTypeDropdown .item-box {
+#listedByDropdown .item-box,
+#preleaseDropdown .item-box,
+#availabilityDropdown .item-box,
+#pgAmenitiesDropdown .item-box,
+#seatsDropdown .item-box {
   padding: 10px;
   gap: 6px;
   justify-content: space-around;
@@ -410,8 +413,11 @@ nav .nav-filter li:hover {
 .active-gender-type,
 .active-room-type,
 .active-food-type,
-.active-suitable-type,
-.active-location-type {
+.active-listed-by,
+.active-prelease,
+.active-availability,
+.active-pg-amenities,
+.active-seats {
   background-color: #111f3c;
   color: white;
 }
@@ -422,8 +428,11 @@ nav .nav-filter li:hover {
 .active-gender-type:hover,
 .active-room-type:hover,
 .active-food-type:hover,
-.active-suitable-type,
-.active-location-type {
+.active-listed-by:hover,
+.active-prelease:hover,
+.active-availability:hover,
+.active-pg-amenities:hover,
+.active-seats:hover {
   background-color: #16284b;
   color: white;
 }
@@ -2640,9 +2649,29 @@ th {
 .filter-section-modal .category-section p,
 .filter-section-modal .listed-section p,
 .filter-section-modal .furnishing-section p,
+.filter-section-modal .verified-section p,
+.filter-section-modal .bathroom-section p,
+.filter-section-modal .bhk-section p,
+.filter-section-modal .rera-section p,
 .filter-section-modal .sale-type-section p,
 .filter-section-modal .facing-section p,
-.filter-section-modal .amenities-section p {
+.filter-section-modal .amenities-section p,
+.filter-section-modal .lease-section p,
+.filter-section-modal .construction-section p,
+.filter-section-modal .property-details-section p,
+.filter-section-modal .open-sides-section p,
+.filter-section-modal .zone-section p,
+.filter-section-modal .ownership-section p,
+.filter-section-modal .commercial-amenities-section p,
+.filter-section-modal .prelease-section p,
+.filter-section-modal .availability-section p,
+.filter-section-modal .pg-amenities-section p,
+.filter-section-modal .room-section p,
+.filter-section-modal .food-section p,
+.filter-section-modal .seats-section p,
+.filter-section-modal .lock-section p,
+.filter-section-modal .space-section p,
+.filter-section-modal .washroom-section p {
   padding: 10px 20px;
   box-shadow: 0px 4px 13px 0px #00000022;
   border-radius: 5px;
@@ -2653,9 +2682,29 @@ th {
 .filter-section-modal .category-section p.active,
 .filter-section-modal .listed-section p.active,
 .filter-section-modal .furnishing-section p.active,
+.filter-section-modal .verified-section p.active,
+.filter-section-modal .bathroom-section p.active,
+.filter-section-modal .bhk-section p.active,
+.filter-section-modal .rera-section p.active,
 .filter-section-modal .sale-type-section p.active,
 .filter-section-modal .facing-section p.active,
-.filter-section-modal .amenities-section p.active {
+.filter-section-modal .amenities-section p.active,
+.filter-section-modal .lease-section p.active,
+.filter-section-modal .construction-section p.active,
+.filter-section-modal .property-details-section p.active,
+.filter-section-modal .open-sides-section p.active,
+.filter-section-modal .zone-section p.active,
+.filter-section-modal .ownership-section p.active,
+.filter-section-modal .commercial-amenities-section p.active,
+.filter-section-modal .prelease-section p.active,
+.filter-section-modal .availability-section p.active,
+.filter-section-modal .pg-amenities-section p.active,
+.filter-section-modal .room-section p.active,
+.filter-section-modal .food-section p.active,
+.filter-section-modal .seats-section p.active,
+.filter-section-modal .lock-section p.active,
+.filter-section-modal .space-section p.active,
+.filter-section-modal .washroom-section p.active {
   border: 1px solid #111f3c;
   background: #dde8ff;
 }
@@ -2673,13 +2722,16 @@ th {
 }
 
 .filter-section-modal .property-type-section input[type="checkbox"] {
-  /* accent-color: #111f3c; */
   width: 16px;
   height: 16px;
 }
 
 .filter-section-modal .slider-values {
   font-size: 0.8rem;
+}
+
+.filters-applied .rent-range-filter {
+  display: none;
 }
 
 .filter-section-modal input[type="range"] {
@@ -2723,6 +2775,7 @@ th {
   align-items: center;
   justify-content: center;
   font-size: 0.8rem;
+  margin-left: 10px;
 }
 .filter-section-modal .slider-labels .line {
   height: 17px;
@@ -4384,6 +4437,19 @@ form .no-transform label {
     font-size: 0.8rem;
   }
   .property-list-card {
+    display: none;
+  }
+  .mob-pll-with-ad .nearby-places {
+    overflow-x: auto;
+  }
+  .mob-pll-with-ad .nearby-places div {
+    flex: 1;
+  }
+  .mob-pll-with-ad .nearby-places div p {
+    white-space: nowrap;
+  }
+
+  .mob-pll-with-ad .nearby-places .hover-text {
     display: none;
   }
 
